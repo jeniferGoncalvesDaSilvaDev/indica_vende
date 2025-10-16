@@ -8,14 +8,14 @@ if os.getenv("STREAMLIT_SHARING_MODE"):
     # Streamlit Cloud deployment - precisa apontar para backend deployado
     BASE_URL = os.getenv("BACKEND_URL", "https://indicavende-api-q7jm.onrender.com")
 elif os.getenv("REPLIT_DEPLOYMENT"):
-    # Deployment Replit - backend roda em http://localhost:5000
-    BASE_URL = "http://localhost:5000"
+    # Deployment Replit - backend roda em http://0.0.0.0:5000
+    BASE_URL = "http://0.0.0.0:5000"
 elif os.getenv("REPL_SLUG"):
-    # Desenvolvimento Replit
-    BASE_URL = os.getenv("BACKEND_URL", "http://localhost:5000")
+    # Desenvolvimento Replit - backend roda na porta 5000
+    BASE_URL = "http://0.0.0.0:5000"
 else:
     # Desenvolvimento local
-    BASE_URL = os.getenv("BACKEND_URL", "http://localhost:5000")
+    BASE_URL = os.getenv("BACKEND_URL", "http://0.0.0.0:5000")
 
 def login(email: str, password: str):
     try:
