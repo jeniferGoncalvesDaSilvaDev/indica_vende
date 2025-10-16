@@ -3,7 +3,7 @@ modules = ["python-3.10"]
 expertMode = true
 
 [workflows]
-runButton = "Project"
+runButton = "Streamlit Frontend"
 
 [[workflows.workflow]]
 name = "Project"
