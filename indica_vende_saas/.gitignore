@@ -35,6 +35,11 @@ env/
 *.sqlite3
 indicavende.db
 
+# Environment Variables
+.env
+.env.local
+.env.*.local
+
 # IDE
 .vscode/
 .idea/

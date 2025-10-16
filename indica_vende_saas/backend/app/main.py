@@ -3,9 +3,13 @@ from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from typing import List
 import uvicorn
+import os
+from dotenv import load_dotenv
 
 from . import models, schemas, auth, database
 from .database import engine, get_db
+
+load_dotenv()
 
 models.Base.metadata.create_all(bind=engine)
 
@@ -80,4 +84,5 @@ def seed_database(db: Session = Depends(get_db)):
     return auth.seed_database(db)
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    port = int(os.getenv("PORT", 8000))
+    uvicorn.run(app, host="0.0.0.0", port=port)
