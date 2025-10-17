@@ -3,7 +3,7 @@ modules = ["python-3.10"]
 expertMode = true
 
 [workflows]
-runButton = "Streamlit Frontend"
+runButton = "Frontend"
 
 [[workflows.workflow]]
 name = "Project"
@@ -34,6 +34,15 @@ mode = "sequential"
 [[workflows.workflow.tasks]]
 task = "shell.exec"
 args = "cd indica_vende_saas/frontend && streamlit run app.py --server.port 8501 --server.address 0.0.0.0"
+
+[[workflows.workflow]]
+name = "Frontend"
+author = 48712722
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd indica_vende_saas/frontend && streamlit run app.py --server.port 5000 --server.address 0.0.0.0 --server.enableCORS false --server.enableXsrfProtection false"
 
 [[ports]]
 localPort = 5000
