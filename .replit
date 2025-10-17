@@ -44,6 +44,15 @@ mode = "sequential"
 task = "shell.exec"
 args = "cd indica_vende_saas/frontend && streamlit run app.py --server.port 5000 --server.address 0.0.0.0 --server.enableCORS false --server.enableXsrfProtection false"
 
+[[workflows.workflow]]
+name = "Run Tests"
+author = 48712722
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd indica_vende_saas/backend && python -m pytest tests/ -v"
+
 [[ports]]
 localPort = 5000
 externalPort = 80
@@ -55,3 +64,6 @@ externalPort = 3001
 [[ports]]
 localPort = 38695
 externalPort = 3000
+
+[nix]
+channel = "stable-25_05"
