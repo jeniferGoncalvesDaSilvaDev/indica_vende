@@ -19,13 +19,20 @@ else:
 
 def login(email: str, password: str):
     try:
-        response = requests.post(f"{BASE_URL}/auth/login", json={
-            "email": email,
-            "password": password
-        })
+        response = requests.post(
+            f"{BASE_URL}/auth/login", 
+            json={
+                "email": email,
+                "password": password
+            },
+            timeout=5  # Timeout de 5 segundos
+        )
         
         if response.status_code == 200:
             return response.json()
+        return None
+    except requests.Timeout:
+        st.error("⏱️ Tempo de conexão esgotado. Tente novamente.")
         return None
     except Exception as e:
         st.error(f"Erro ao conectar com o servidor: {e}")
@@ -33,12 +40,16 @@ def login(email: str, password: str):
 
 def register(name: str, email: str, password: str, role: str):
     try:
-        response = requests.post(f"{BASE_URL}/auth/register", json={
-            "name": name,
-            "email": email,
-            "password": password,
-            "role": role
-        })
+        response = requests.post(
+            f"{BASE_URL}/auth/register", 
+            json={
+                "name": name,
+                "email": email,
+                "password": password,
+                "role": role
+            },
+            timeout=5  # Timeout de 5 segundos
+        )
         
         if response.status_code == 200:
             return response.json()
@@ -48,6 +59,9 @@ def register(name: str, email: str, password: str, role: str):
         else:
             st.error(f"Erro ao criar conta: {response.text}")
             return None
+    except requests.Timeout:
+        st.error("⏱️ Tempo de conexão esgotado. Tente novamente.")
+        return None
     except Exception as e:
         st.error(f"Erro ao conectar com o servidor: {e}")
         return None
