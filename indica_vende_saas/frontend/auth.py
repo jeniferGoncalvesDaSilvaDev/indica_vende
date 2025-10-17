@@ -1,6 +1,7 @@
 import requests
 import streamlit as st
 import os
+from functools import lru_cache
 
 # Detecta automaticamente o ambiente
 # Para Streamlit Cloud, use a variável de ambiente BACKEND_URL
@@ -82,13 +83,16 @@ def make_authenticated_request(endpoint: str, method: str = "GET", data: dict = 
     
     try:
         if method == "GET":
-            response = requests.get(url, headers=headers)
+            response = requests.get(url, headers=headers, timeout=10)
         elif method == "POST":
-            response = requests.post(url, json=data, headers=headers)
+            response = requests.post(url, json=data, headers=headers, timeout=10)
         elif method == "PUT":
-            response = requests.put(url, json=data, headers=headers)
+            response = requests.put(url, json=data, headers=headers, timeout=10)
         
         return response
+    except requests.Timeout:
+        st.error("⏱️ Tempo de conexão esgotado. Verifique sua internet.")
+        return None
     except Exception as e:
         st.error(f"Erro ao conectar com o servidor: {e}")
         return None

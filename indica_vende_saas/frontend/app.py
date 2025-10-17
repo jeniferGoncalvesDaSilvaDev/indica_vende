@@ -70,15 +70,14 @@ def show_login_screen():
                 user = login(email, password)
                 if user:
                     st.session_state.user = user
-                    st.success("Login realizado com sucesso!")
-                    # O Streamlit irá recarregar automaticamente na próxima interação
+                    st.rerun()
                 else:
                     st.error("Credenciais inválidas")
         
         st.markdown("---")
         if st.button("Não tem conta? Criar conta"):
             st.session_state.show_register = True
-            # Removido rerun para carregamento mais rápido
+            st.rerun()
 
 def show_register_screen():
     st.markdown("---")
@@ -116,7 +115,7 @@ def show_register_screen():
         st.markdown("---")
         if st.button("Já tem conta? Fazer login"):
             st.session_state.show_register = False
-            # Removido rerun para carregamento mais rápido
+            st.rerun()
 
 def show_main_interface():
     user = st.session_state.user
